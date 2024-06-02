@@ -94,7 +94,6 @@ if __name__ == '__main__':
 
     prix = gaz.prices(id)
 
-    print(gaz.carburants)
     print(prix)
 
 
