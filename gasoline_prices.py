@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 from math import cos, asin, sqrt
 import json
+from io import StringIO
 
 # note for english readers: pdv = point de vente (french for seller)
 
@@ -50,10 +51,9 @@ class gazoline_france:
         html = response.text
 
         # load html into panda dataframe
-        df = pd.read_html(html)
+        df = pd.read_html(StringIO(html))
         # delete empty rows
         df = df[0].dropna()
-        print(df)
         return df
     
     def find_closest_seller(self, lat, lon): # return the id of the closest seller to the given point
