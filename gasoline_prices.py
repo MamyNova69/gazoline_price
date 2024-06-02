@@ -1,6 +1,8 @@
 import requests
 import pandas as pd
 
+# note for english readers: pdv = point de vente (french for seller)
+
 class gazoline_france:
     def __init__(self):
         self.carburants = ["Gazole (B7)", "E85 (E85)", "SP95-E10 (E10)", "SP98 (E5)"]
@@ -32,7 +34,7 @@ class gazoline_france:
         response = requests.get(self.url, headers=self.headers_to_get_cookies)
         self.cookies = response.cookies.get_dict()
 
-    def point_de_vente(self): # récupère les points de vente de carburant
+    def find_sellers(self): # récupère les points de vente de carburant
         # la réponse est un json
         response = requests.get(f'{self.url}/map/recupererOpenPdvs/', cookies=self.cookies, headers=self.headers_to_get_datas)
         # print(response.text)
@@ -51,12 +53,17 @@ class gazoline_france:
         df = df[0].dropna()
         print(df)
         return df
+    
+    def find_closest_seller(self, lat, lon):
+        # en utilisant la formule de haversine
+
+        pass
 
 
 if __name__ == '__main__':
     gaz = gazoline_france()
-    # print(gaz.point_de_vente())
-    html = gaz.prices('69007006')
+    print(gaz.find_sellers())
+    # html = gaz.prices('69007006')
 
 
 
