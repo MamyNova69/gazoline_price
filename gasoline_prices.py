@@ -3,6 +3,7 @@ import pandas as pd
 from math import cos, asin, sqrt
 import json
 from io import StringIO
+import bs4 as bs
 
 # note for english readers: pdv = point de vente (french for seller)
 
@@ -49,6 +50,10 @@ class gazoline_france:
             headers=self.headers_to_get_datas,
         )
         html = response.text
+        soup = bs.BeautifulSoup(html, 'html.parser')
+        adresse = soup.find_all('p')
+        for x in adresse:
+            print(x.text)
 
         # load html into panda dataframe
         df = pd.read_html(StringIO(html))
