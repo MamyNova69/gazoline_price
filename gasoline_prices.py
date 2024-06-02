@@ -90,7 +90,7 @@ class gazoline_france:
 if __name__ == '__main__':
     gaz = gazoline_france()
 
-    id = gaz.find_closest_seller(45.740134, 4.838413)
+    id = gaz.find_closest_seller(45.753308, 4.893402)
 
     prix = gaz.prices(id)
 
