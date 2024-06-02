@@ -1,9 +1,10 @@
 import requests
 import pandas as pd
 
-class gazoline_price:
+class gazoline_france:
     def __init__(self):
-        self.url = 'https://www.prix-carburants.gouv.fr'
+        self.carburants = ["Gazole (B7)", "E85 (E85)", "SP95-E10 (E10)", "SP98 (E5)"]
+        self.url = 'https://www.prix-carburants.gouv.fr' # careful with / at the end of the url
         self.headers_to_get_cookies = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:126.0) Gecko/20100101 Firefox/126.0',
             'Accept': '*/*',
@@ -31,13 +32,13 @@ class gazoline_price:
         response = requests.get(self.url, headers=self.headers_to_get_cookies)
         self.cookies = response.cookies.get_dict()
 
-    def recupererOpenPdvs(self): # récupère les points de vente de carburant
+    def point_de_vente(self): # récupère les points de vente de carburant
         # la réponse est un json
         response = requests.get(f'{self.url}/map/recupererOpenPdvs/', cookies=self.cookies, headers=self.headers_to_get_datas)
         # print(response.text)
         return response.text
 
-    def recuperer_infos_pdv(self, id_pdv): # retourn un dataframe panda
+    def prices(self, id_pdv): # retourn un dataframe panda
         response = requests.get(f"{self.url}/map/recuperer_infos_pdv/"+id_pdv,
             cookies=self.cookies,
             headers=self.headers_to_get_datas,
@@ -53,9 +54,9 @@ class gazoline_price:
 
 
 if __name__ == '__main__':
-    gaz = gazoline_price()
-    # print(gaz.recupererOpenPdvs())
-    html = gaz.recuperer_infos_pdv('69007006')
+    gaz = gazoline_france()
+    # print(gaz.point_de_vente())
+    html = gaz.prices('69007006')
 
 
 
