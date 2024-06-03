@@ -4,6 +4,7 @@ from math import cos, asin, sqrt
 import json
 from io import StringIO
 import bs4 as bs
+import time
 
 # note for english readers: pdv = point de vente (french for seller)
 
@@ -88,6 +89,8 @@ class gazoline_france:
 
 
 if __name__ == '__main__':
+    start_time = time.time()
+
     gaz = gazoline_france()
 
     id = gaz.find_closest_seller(45.753308, 4.893402)
@@ -95,5 +98,10 @@ if __name__ == '__main__':
     prix = gaz.prices(id)
 
     print(prix)
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print("")
+    print(f"Execution time: {elapsed_time:.2f} seconds")
+
 
 
